@@ -20,7 +20,14 @@ namespace MoodAnalyzer1
         {
             try
             {
-                if (this.message.ToLower().Contains("happy"))
+                //UC 3 Inform user if he entered Invalid Mood
+
+                if (this.message.Equals(string.Empty))
+                {
+
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                }
+                    if (this.message.ToLower().Contains("happy"))
                 {
                     return "happy";
                 }
@@ -31,8 +38,8 @@ namespace MoodAnalyzer1
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine(ex.Message);
-                return "happy";
+                return ex.Message;
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Mood should not be empty");
             }
         }
     }
