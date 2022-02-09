@@ -8,26 +8,34 @@ namespace MoodAnalyzer1
 {
     public class MoodAnalyzer
     {
-        public string message;  //instance variable      
-
-
-        public MoodAnalyzer(string message) //parameterized constructor 
+        public string message;
+        /// <summary>
+        /// default contructor
+        /// </summary>
+        public MoodAnalyzer()
+        {
+            Console.WriteLine("default contructor");
+        }
+        //parameterized constructor
+        public MoodAnalyzer(string message)
         {
             this.message = message;
-
         }
-        public string Analyzer()  //Analyzer method find mood
+        //Method to return the type of Mood
+        public string Analyzer()
         {
             try
             {
-                //UC 3 Inform user if he entered Invalid Mood
-
-                if (this.message.Equals(string.Empty))
+                message = message.ToLower();
+                if (message == null)
                 {
-
-                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Message cann't be null");
                 }
-                    if (this.message.ToLower().Contains("happy"))
+                if (message.Equals(string.Empty))
+                {
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_EXCEPTION, "Message cann't be Empty");
+                }
+                if (message.Contains("happy"))
                 {
                     return "happy";
                 }
@@ -36,10 +44,9 @@ namespace MoodAnalyzer1
                     return "sad";
                 }
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
-                return ex.Message;
-                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Mood should not be empty");
+                return "happy";
             }
         }
     }
